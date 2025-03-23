@@ -1,7 +1,7 @@
-
 GOCMD=go
 GOTEST=$(GOCMD) test
 GOVET=$(GOCMD) vet
+BINARY_NAME=sorter
 VERSION?=0.0.1
 DOCKER_REGISTRY?=localhost:32000/
 EXPORT_RESULT?=false # for CI please set EXPORT_RESULT to true
