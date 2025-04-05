@@ -41,14 +41,13 @@ func Import(filename string) *Importer {
 	inputRows := make([]InputRow, 0, len(rows))
 	for _, r := range rows {
 		with := make([]string, 0, 3)
-		for _, w := range r[4:6] {
-			// TODO: check this range
+		for _, w := range r[4:7] {
 			if w != "" {
 				with = append(with, w)
 			}
 		}
 		avoid := make([]string, 0, 6)
-		for _, a := range r[7 : len(r)-1] {
+		for _, a := range r[7:] {
 			if a != "" {
 				avoid = append(avoid, a)
 			}
@@ -85,8 +84,7 @@ func (i *Importer) GetSiblingRules() map[string]string {
 	siblingRules := make(map[string]string)
 	for _, r := range i.Rows {
 		if r.SiblingClass != "" {
-			siblingRules[r.Id] = r.SiblingClass // TODO: strip first char and assign.  if xS3, randomly assign to 1s1/1s2 - CONFIRM
-
+			siblingRules[r.Id] = r.SiblingClass
 		}
 	}
 	return siblingRules
@@ -99,15 +97,8 @@ func (i *Importer) GetPupils() []*sorter.Pupil {
 		if strings.ToLower(r.Girfme) == "yes" {
 			hasGirfme = true
 		}
-		gender := sorter.Other
-		if strings.ToLower(r.Gender) == "male" {
-			gender = sorter.Male
-		}
-		if strings.ToLower(r.Gender) == "female" {
-			gender = sorter.Female
-		}
 
-		p := sorter.Pupil{Id: r.Id, Gender: gender, HasGirfme: hasGirfme}
+		p := sorter.Pupil{Id: r.Id, Gender: strings.TrimSpace(strings.ToLower(r.Gender)), HasGirfme: hasGirfme}
 		pupils = append(pupils, &p)
 	}
 	return pupils

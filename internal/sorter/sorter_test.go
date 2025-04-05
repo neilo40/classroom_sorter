@@ -14,17 +14,17 @@ func TestInit(t *testing.T) {
 		sorter.WithWithRules(map[string]string{"1": "2", "3": "22"}),
 		sorter.WithSiblingRules(map[string]string{"8": "1b1", "43": "1c2"}),
 		sorter.WithPupils([]*sorter.Pupil{
-			{Id: "1", HasGirfme: false, Gender: sorter.Male},
-			{Id: "2", HasGirfme: false, Gender: sorter.Male},
-			{Id: "3", HasGirfme: true, Gender: sorter.Female},
-			{Id: "4", HasGirfme: false, Gender: sorter.Male},
-			{Id: "8", HasGirfme: false, Gender: sorter.Female},
-			{Id: "22", HasGirfme: true, Gender: sorter.Male},
-			{Id: "43", HasGirfme: false, Gender: sorter.Other},
+			{Id: "1", HasGirfme: false, Gender: "male"},
+			{Id: "2", HasGirfme: false, Gender: "male"},
+			{Id: "3", HasGirfme: true, Gender: "male"},
+			{Id: "4", HasGirfme: false, Gender: "male"},
+			{Id: "8", HasGirfme: false, Gender: "male"},
+			{Id: "22", HasGirfme: true, Gender: "male"},
+			{Id: "43", HasGirfme: false, Gender: "female"},
 		}),
 	)
 
-	err := s.InitClasses()
+	err := s.InitClasses(nil)
 	if err != nil {
 		t.Errorf("Error generating classes: %v", err)
 	}
